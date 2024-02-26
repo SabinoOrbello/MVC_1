@@ -1,0 +1,33 @@
+﻿@Model List<Dipendenti>
+
+   
+
+
+
+    <h2>Lista Dipendenti</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Indirizzo</th>
+                <th>Codice Fiscale</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dipendente in Model)
+            {
+                <tr>
+                    <td>@dipendente.Nome</td>
+                    <td>@dipendente.Cognome</td>
+                    <td>@dipendente.Indirizzo</td>
+                    <td>@dipendente.CodiceFiscale</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+
