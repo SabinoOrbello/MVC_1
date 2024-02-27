@@ -121,9 +121,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DipendentiController.cs" />
+    <Compile Include="Controllers\PagamentiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DettagliDipendente.cs" />
     <Compile Include="Models\Dipendenti.cs" />
     <Compile Include="Models\Pagamenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +167,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\css.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -178,6 +181,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Dipendenti\index.cshtml" />
     <Content Include="Views\Dipendenti\Create.cshtml" />
+    <Content Include="Views\Pagamenti\Index.cshtml" />
+    <Content Include="Views\Pagamenti\Create.cshtml" />
+    <Content Include="Views\Dipendenti\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

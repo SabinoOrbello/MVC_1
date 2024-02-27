@@ -1,33 +1,38 @@
-﻿@Model List<Dipendenti>
-
-   
+﻿@model List<MVC_1.Models.Dipendenti>
 
 
 
-    <h2>Lista Dipendenti</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Indirizzo</th>
-                <th>Codice Fiscale</th>
+    <div class="container colCont p-3 rounded-5">
+        <h2>Lista Dipendenti</h2>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var dipendente in Model)
-            {
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@dipendente.Nome</td>
-                    <td>@dipendente.Cognome</td>
-                    <td>@dipendente.Indirizzo</td>
-                    <td>@dipendente.CodiceFiscale</td>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Indirizzo</th>
+                    <th>Codice Fiscale</th>
 
                 </tr>
-            }
-        </tbody>
-    </table>
-    
+            </thead>
+            <tbody>
+                @foreach (var dipendente in Model)
+                {
+                    <tr>
+                        <td>@dipendente.Nome</td>
+                        <td>@dipendente.Cognome</td>
+                        <td>@dipendente.Indirizzo</td>
+                        <td>@dipendente.CodiceFiscale</td>
+                        <td>@Html.ActionLink("Dettagli", "Details", new { Id = dipendente.Id }, new { @class = "btn btn-success" })</td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            @Html.ActionLink("Crea nuovo dipendente", "Create",null,new { @class = "btn btn-primary" })
+        </div>
+    </div>
 

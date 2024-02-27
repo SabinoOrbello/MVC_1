@@ -1,0 +1,48 @@
+﻿@model MVC_1.Models.DettagliDipendente
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container colCont p-3 rounded-5">
+    <h2>Dettagli Dipendente</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <td>@Model.Dipendente.Nome</td>
+        </tr>
+        <tr>
+            <th>Cognome</th>
+            <td>@Model.Dipendente.Cognome</td>
+        </tr>
+        <!-- Aggiungi altri campi del dipendente qui -->
+    </table>
+
+    <h3>Pagamenti</h3>
+    @if (Model.Pagamenti.Any())
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>Periodo Pagamento</th>
+                <th>Ammontare</th>
+                <th>Stipendio</th>
+            </tr>
+            @foreach (var pagamento in Model.Pagamenti)
+            {
+                <tr>
+                    <td>@pagamento.PeriodoPagamento</td>
+                    <td>@pagamento.Ammontare</td>
+                    <td>@(pagamento.Stipendio ? "Sì" : "No")</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Nessun pagamento disponibile.</p>
+    }
+
+    <p>
+        @Html.ActionLink("Torna alla Lista", "Index", null, new { @class = "btn btn-primary" })
+    </p>
+</div>

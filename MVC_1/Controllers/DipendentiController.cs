@@ -104,6 +104,83 @@ namespace MVC_1.Controllers
             return View(dipendente);
         }
 
+        public ActionResult Details(int id)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Lavoro"].ToString();
+            SqlConnection conn = new SqlConnection(connectionString);
+
+            DettagliDipendente dettagliDipendente = new DettagliDipendente();
+
+            try
+            {
+                conn.Open();
+
+                // Query per ottenere i dettagli del dipendente
+                string dipendenteQuery = "SELECT * FROM DIPENDENTI WHERE Id = @Id";
+                using (SqlCommand dipendenteCmd = new SqlCommand(dipendenteQuery, conn))
+                {
+                    dipendenteCmd.Parameters.AddWithValue("@Id", id);
+
+                    SqlDataReader dipendenteReader = dipendenteCmd.ExecuteReader();
+
+                    if (dipendenteReader.Read())
+                    {
+                        dettagliDipendente.Dipendente = new Dipendenti
+                        {
+                            Id = Convert.ToInt32(dipendenteReader["Id"]),
+                            Nome = dipendenteReader.GetString(1),
+                            Cognome = dipendenteReader.GetString(2),
+                            Indirizzo = dipendenteReader.GetString(3),
+                            CodiceFiscale = dipendenteReader.GetString(4),
+                            Coniugato = dipendenteReader.GetBoolean(5),
+                            NumeroFigli = dipendenteReader.GetInt32(6),
+                            Mansione = dipendenteReader.GetString(7)
+                        };
+                    }
+
+                    dipendenteReader.Close();
+                }
+
+                // Query per ottenere i pagamenti associati a questo dipendente
+                string pagamentiQuery = "SELECT * FROM PAGAMENTI WHERE DipendenteId = @DipendenteId";
+                using (SqlCommand pagamentiCmd = new SqlCommand(pagamentiQuery, conn))
+                {
+                    pagamentiCmd.Parameters.AddWithValue("@DipendenteId", id);
+
+                    SqlDataReader pagamentiReader = pagamentiCmd.ExecuteReader();
+
+                    while (pagamentiReader.Read())
+                    {
+                        Pagamenti pagamento = new Pagamenti
+                        {
+                            Id = Convert.ToInt32(pagamentiReader["Id"]),
+                            DipendenteId = Convert.ToInt32(pagamentiReader["DipendenteId"]),
+                            PeriodoPagamento = pagamentiReader.GetDateTime(2),
+                            Ammontare = pagamentiReader.GetDecimal(3),
+                            Stipendio = pagamentiReader.GetBoolean(4)
+                        };
+
+                        dettagliDipendente.Pagamenti.Add(pagamento);
+                    }
+
+                    pagamentiReader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Errore durante il recupero dei dati: {ex.Message}");
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return View(dettagliDipendente);
+        }
+
+
+
+
 
     }
 }
